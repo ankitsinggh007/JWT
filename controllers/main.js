@@ -21,39 +21,13 @@ const Login=async(req,res)=>{
     
  }
 const  dashboard=async(req,res)=>{
-    try {
-        const Auth=req.headers.authorization;
-        const token=Auth.split(' ')[1];
-
-        // if(!token ){
-        //     throw Error;
-        // }
+      
         const luckyNumber=Math.floor(Math.random()*100);
-
-        try {
-        const decode =JWT.verify(token,process.env.Secret_key);
-            // console.log(decode);
+    console.log(req.user,"requser")
         res.status(200).json({
-            msg:`hello ${decode.username}`,
+            msg:`hello ${req.user.username}`,
             secret:`here is your auth data,your lucky no. is ${luckyNumber}`
-        }) 
-        } catch (error) {
-
-            res.json({
-                
-                msg:"please login before getting any result",
-                secret : 'none'
-        }
-            )
-            
-            console.log(error.message);
-            throw error.message;
-            
-        }
-    
-    } catch (error) {
-        throw error;
-    }
+        })    
 
  };
  module.exports={
